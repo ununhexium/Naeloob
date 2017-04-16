@@ -45,4 +45,4 @@ SQ_STRING  : SQ (~'\'')*? SQ  ;
 IDENTIFIER : [a-zA-Z_] [a-zA-Z_0-9]*;
 WS         : [ \r\t\u000C\n]+ -> skip;
 
-UQ_STRING  : (.)+? ;
+UQ_STRING  : (~'\'')*? ;

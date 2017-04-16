@@ -44,6 +44,7 @@ public class NaeloobTest {
         {"WORD/'value'", true},
         {"WORD/'else'", false},
         {"WORD2/'WORD2'", true},
+        {"KEY/unquoted", true},
     });
   }
 
@@ -57,6 +58,7 @@ public class NaeloobTest {
     variables = new HashMap<String, Object>() {{
       put("WORD", "value");
       put("WORD2", "WORD2");
+      put("KEY", "unquoted");
     }};
   }
 
