@@ -7,11 +7,12 @@ parse
 expression
  : LPAREN expression RPAREN                                 #parenExpression
  | NOT expression                                           #notExpression
- | left=IDENTIFIER op=EQ right=(DQ_STRING|SQ_STRING|UQ_STRING)        #comparisonExpression
  | left=expression op=comparator right=expression           #comparatorExpression
  | left=expression op=binary right=expression               #binaryExpression
  | bool                                                     #boolExpression
+ | string                                                   #stringExpression
  | DECIMAL                                                  #decimalExpression
+ | IDENTIFIER                                               #identifierExpression
  ;
 
 comparator
@@ -24,6 +25,11 @@ binary
 
 bool
  : TRUE | FALSE
+ ;
+
+string
+ : DQ_STRING
+ | SQ_STRING
  ;
 
 
@@ -39,10 +45,10 @@ DECIMAL    : '-'? [0-9]+ ( '.' [0-9]+ )? ;
 
 DQ         : '"' ;
 SQ         : '\'' ;
-DQ_STRING  : DQ (~'"')*? DQ  ;
-SQ_STRING  : SQ (~'\'')*? SQ  ;
+DQ_STRING  : DQ (~'"')*? DQ ;
+SQ_STRING  : SQ (~'\'')*? SQ ;
 
-IDENTIFIER : [a-zA-Z_] [a-zA-Z_0-9]*;
+fragment L : [A-Z] ;
+IDENTIFIER : L L L L;
+
 WS         : [ \r\t\u000C\n]+ -> skip;
-
-UQ_STRING  : (~'\'')*? ;

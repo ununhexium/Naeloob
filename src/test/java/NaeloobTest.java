@@ -43,7 +43,7 @@ public class NaeloobTest {
         {"FALSE/FALSE", true},
         {"WORD/'value'", true},
         {"WORD/'else'", false},
-        {"WORD2/'WORD2'", true},
+        {"WORD2/\"WORD2\"", true},
         {"KEY/unquoted", true},
     });
   }
@@ -70,6 +70,4 @@ public class NaeloobTest {
     Object result = new EvalVisitor(variables).visit(parser.parse());
     Assert.assertEquals(expected, result);
   }
-
-
 }

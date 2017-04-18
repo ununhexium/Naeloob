@@ -61,13 +61,19 @@ class EvalVisitor
   }
 
   @Override
-  public Object visitComparisonExpression(NaeloobParser.ComparisonExpressionContext ctx) {
-    Object identifier = variables.get(ctx.IDENTIFIER().getText());
-    String unquote = unquote(ctx.right.getText());
-    return identifier.equals(unquote);
+  public Object visitStringExpression(NaeloobParser.StringExpressionContext ctx) {
+    return unquote(ctx.getText());
   }
 
-  private String unquote(String text) {
-    return text.substring(1, text.length()-1);
+  private Object unquote(String text) {
+    if (text.charAt(0) == '\'' || text.charAt(0) == '"') {
+      return text.substring(1, text.length() - 1);
+    }
+    return text;
+  }
+
+  @Override
+  public Object visitIdentifierExpression(NaeloobParser.IdentifierExpressionContext ctx) {
+    return variables.get(ctx.getText());
   }
 }
